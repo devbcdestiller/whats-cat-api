@@ -11,5 +11,10 @@ class ModelProcessing():
         temp = dict(zip(BREEDS, list(self.pred[0])))
         probabilities = {key: val for key, val in sorted(temp.items(), key = lambda ele: ele[1], reverse = True)}
         prob_dist = {k: round((v*100), 4) for k, v in (list(probabilities.items())[:top])}
-        print(prob_dist)
-        return prob_dist
+        result = []
+        for item in prob_dist.items():
+            result.append({"class": item[0],
+                           "confidence": item[1]})
+
+        # print(prob_dist)
+        return result
