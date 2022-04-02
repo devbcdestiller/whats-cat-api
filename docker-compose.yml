@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  flask_server:
+    container_name: flask_server
+    build:
+      context: ./flask_server
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_ENV=dev
+      - FLASK_APP=app
+      - FLASK_RUN_HOST=0.0.0.0
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/flask_server
+    depends_on:
+      - whatscat-serving
+    networks:
+      ml-network:
+        aliases:
+          - flask_server
+
+  whatscat-serving:
+    image: tensorflow/serving
+    container_name: whatscat-serving
+    ports:
+        - 8500:8500
+        - 8501:8501
+    volumes:
+        - ./models:/models
+        - ./serving_docker.config:/models/serving_docker.config
+    command: --model_config_file=/models/serving_docker.config
+    networks:
+      - ml-network
+
+networks:
+  ml-network:
