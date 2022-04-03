@@ -1,7 +1,8 @@
 # whats-cat-api
 Cat breed classifier using Inceptionv3. Deployed using Tensorflow Serving and Flask, built with Docker Compose.
 ## Dependencies
-Install [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/)
+- Install [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/)
+- Tensorflow Serving image: `docker pull tensorflow/serving`
 ## Installation
 1. Clone repository with `git clone https://github.com/devbcdestiller/whats-cat-api.git`
 2. `cd whats-cat-api`
