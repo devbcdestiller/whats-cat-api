@@ -9,7 +9,7 @@ import json
 
 
 # URI which points to the tensorflow-serving model
-MODEL_URI = 'http://whatscat-serving:8501/v1/models/whatscat-serving:predict'
+MODEL_URI = 'http://tf_serving:8501/v1/models/whatscat_model:predict'
 app = Flask(__name__)
 
 

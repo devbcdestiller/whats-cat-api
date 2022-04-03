@@ -14,24 +14,25 @@ services:
     volumes:
       - .:/flask_server
     depends_on:
-      - whatscat-serving
+      - tf_serving
     networks:
-      ml-network:
+      flask-network:
         aliases:
           - flask_server
 
-  whatscat-serving:
-    image: tensorflow/serving
-    container_name: whatscat-serving
+  tf_serving:
+    container_name: tf_serving
+    build:
+      context: ./tf_serving
+      dockerfile: Dockerfile
     ports:
         - 8500:8500
         - 8501:8501
     volumes:
-        - ./models:/models
-        - ./serving_docker.config:/models/serving_docker.config
-    command: --model_config_file=/models/serving_docker.config
+        - ./tf_serving/models:/models
+        - ./tf_serving/serving_docker.config:/models/serving_docker.config
     networks:
-      - ml-network
+      - flask-network
 
 networks:
-  ml-network:
+  flask-network:
