@@ -1,5 +1,5 @@
 # whats-cat-api
-Tensorflow Serving with Flask built using Docker Compose
+Cat breed classifier using Inceptionv3. Deployed using Tensorflow Serving and Flask, built with Docker Compose
 ## Dependencies
 Install [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/)
 ## Installation
