@@ -5,14 +5,8 @@ services:
     build:
       context: ./flask_server
       dockerfile: Dockerfile
-    environment:
-      - FLASK_ENV=dev
-      - FLASK_APP=app
-      - FLASK_RUN_HOST=0.0.0.0
     ports:
-      - 5000:5000
-    volumes:
-      - .:/flask_server
+        - 5000:5000
     depends_on:
       - tf_serving
     networks:

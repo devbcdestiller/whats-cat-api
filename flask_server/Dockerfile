@@ -6,4 +6,4 @@ WORKDIR /flask_server
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["python", "./flask_server/app.py"]
+ENTRYPOINT ["gunicorn", "--config", "gunicorn_config.py", "app:app"]
