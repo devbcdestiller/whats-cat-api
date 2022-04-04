@@ -12,5 +12,6 @@ HTTP Request: `http://localhost:5000/predict`
 - Request Method: `POST`
 - Request Body: `form-data`
 - form-data: `{'img': *your_image*}`
+
 Stopping the container.
 - `docker-compose kill` or `docker-compose down` if you want to delete the container
