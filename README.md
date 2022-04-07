@@ -17,5 +17,5 @@ POST `http://localhost:80/predict`
 |---------------|----------|-------------|----------------------------------|
 | img | Yes      | image/jpeg or image/png | Image to be used for inference. |
 
-Stopping the container.
-- `docker-compose kill` or `docker-compose down` if you want to delete the container
+## Stopping the container
+`docker-compose kill` or `docker-compose down` if you want to delete the container
