@@ -6,7 +6,6 @@ import numpy as np
 import requests
 import base64
 import json
-import os
 
 
 # URI which points to the tensorflow-serving model
@@ -45,4 +44,4 @@ def index():
     return 'Welcome! use /predict route to POST images'
 
 # if __name__ == '__main__':
-#     app.run(debug=False)
+#     app.run(debug=True)
