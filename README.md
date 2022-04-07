@@ -3,7 +3,7 @@ Cat breed classifier using Inceptionv3. Deployed using Tensorflow Serving and Fl
 ## Dependencies
 - Install [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/)
 ## Installation
-1. Clone repository with `git clone -b no-tf-serving https://github.com/devbcdestiller/whats-cat-api.git`
+1. Clone repository with `git clone https://github.com/devbcdestiller/whats-cat-api.git`
 2. `cd whats-cat-api`
 3. `docker-compose build`
 4. `docker-compose up` or `docker-compose up -d` if you want to run it without terminal
