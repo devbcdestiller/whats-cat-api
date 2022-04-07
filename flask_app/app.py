@@ -9,7 +9,7 @@ import json
 
 
 # URI which points to the tensorflow-serving model
-MODEL_URI = 'http://whatscat-serving:8501/v1/models/whatscat-serving:predict'
+MODEL_URI = 'http://tf_serving:8501/v1/models/whatscat_model:predict'
 app = Flask(__name__)
 
 
@@ -39,5 +39,9 @@ def predict():
     return jsonify(message="Prediction Success", prediction=breed, data=predictions)
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+@app.route('/')
+def index():
+    return 'Welcome! use /predict route to POST images'
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
