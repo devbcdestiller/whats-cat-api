@@ -1,24 +1,26 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from classes import BREEDS
 from PIL import Image
 from io import BytesIO
-import numpy as np
 import requests
 import base64
 import json
 
 
+VERSION = 'v1'
+
 # URI which points to the tensorflow-serving model
 MODEL_URI = 'http://tf_serving:8501/v1/models/whatscat_model:predict'
 app = Flask(__name__)
+cors = CORS(app, resources={r"/v1/*": {"origins": "*"}})
 
 
-@app.route('/predict', methods=['POST'])
+@app.route(f'/{VERSION}/predict', methods=['POST'])
 def predict():
     input_img = request.files['img']
     accepted_img_format = ['image/jpeg', 'image/png']
 
-    # check if input is an image
     if input_img.content_type not in accepted_img_format:
         return jsonify(message='File format not supported. Use JPEG or PNG.'), 406
 
@@ -34,14 +36,16 @@ def predict():
     response = requests.post(MODEL_URI, data=data)
     result = json.loads(response.text)
     predictions = result['predictions'][0]
-    breed = BREEDS[np.argmax(predictions)]
+    res = dict(zip(predictions, BREEDS))
+    sorted_data = sorted(res.items(), reverse=True)
+    breeds = {k: v for k, v in enumerate(sorted_data)}
 
-    return jsonify(message="Prediction Success", prediction=breed, data=predictions)
+    return jsonify(message="Prediction Success", predictions=breeds)
 
 
 @app.route('/')
 def index():
-    return 'Welcome! use /predict route to POST images'
+    return 'Welcome! visit https://github.com/devbcdestiller/whats-cat-api to read the docs.'
 
 # if __name__ == '__main__':
 #     app.run(debug=True)

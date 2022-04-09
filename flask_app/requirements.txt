@@ -1,5 +1,5 @@
 Flask==2.0.2
+flask-cors
 requests==2.27.1
 gunicorn
-numpy
 Pillow
