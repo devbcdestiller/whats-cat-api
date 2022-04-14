@@ -1,10 +1,11 @@
-version: "3.7"
+version: "3.9"
 services:
   flask_app:
     container_name: flask_app
     build:
       context: ./flask_app
       dockerfile: Dockerfile
+    restart: "on-failure"
     ports:
       - "80:5000"
     volumes:
@@ -21,6 +22,7 @@ services:
     build:
       context: ./tf_serving
       dockerfile: Dockerfile
+    restart: "on-failure"
     ports:
         - "8500"
         - "8501"

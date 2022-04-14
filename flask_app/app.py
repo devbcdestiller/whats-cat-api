@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from classes import BREEDS
 from PIL import Image
@@ -6,14 +6,19 @@ from io import BytesIO
 import requests
 import base64
 import json
-
+import os
 
 VERSION = 'v1'
+app = Flask(__name__)
+cors = CORS(app, resources={r"/v1/*": {"origins": "*"}})
 
 # URI which points to the tensorflow-serving model
 MODEL_URI = 'http://tf_serving:8501/v1/models/whatscat_model:predict'
-app = Flask(__name__)
-cors = CORS(app, resources={r"/v1/*": {"origins": "*"}})
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico')
 
 
 @app.route(f'/{VERSION}/predict', methods=['POST'])
@@ -26,9 +31,16 @@ def predict():
 
     img = Image.open(input_img)
 
+    # tensorflow serving container becomes buggy when image resolution is greater that 1080p
+    if (img.width * img.height) > 2073600:
+        if img.height > img.width:
+            img = img.resize((1080, 1920))
+        else:
+            img = img.resize((1920, 1080))
+
     # encode image into base 64 since tf serving only accepts base 64 encoded images
     with BytesIO() as buffer:
-        img.save(buffer, format='JPEG')
+        img.save(buffer, format='JPEG', optimize=True, quality=60)
         b64_img = base64.b64encode(buffer.getvalue()).decode('utf-8')
 
     instance = [{"b64": b64_img}]
