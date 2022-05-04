@@ -12,7 +12,7 @@ services:
       - ./flask_app:/flask_app
     depends_on:
       - tf_serving
-`     - memcache
+      - memcache
     networks:
       flask-network:
         aliases:
