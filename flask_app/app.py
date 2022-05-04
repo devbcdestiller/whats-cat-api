@@ -54,7 +54,7 @@ def predict():
         if MEMCACHE_CLIENT.get(memcache_key) is not None:
             cached_result = MEMCACHE_CLIENT.get(memcache_key)
             cached_result = ast.literal_eval(cached_result.decode('utf-8'))
-            return jsonify(image=input_img.filename, message="Cached Prediction", predictions=cached_result, memkey=memcache_key)
+            return jsonify(message="Cached Prediction", predictions=cached_result)
 
     instance = [{"b64": b64_img}]
     data = json.dumps({"instances": instance})
