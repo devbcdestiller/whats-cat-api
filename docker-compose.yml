@@ -31,5 +31,18 @@ services:
     networks:
       - flask-network
 
+  memcache:
+    container_name: memcache
+    build:
+      context: ./memcache
+      dockerfile: Dockerfile
+    restart: "on-failure"
+    ports:
+      - "11211"
+    volumes:
+      - ./memcache:/memcache
+    networks:
+      - flask-network
+
 networks:
   flask-network:
