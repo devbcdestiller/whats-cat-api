@@ -10,7 +10,7 @@ Cat breed classifier using Inceptionv3. Deployed using Tensorflow Serving and Fl
 ## Usage
 
 ### Predict input image
-POST /predict`  
+POST /predict  
 **Request Body**  
 **Content-type:** `form-data`  
 | Key           | Required | Value       | Description                      |
